@@ -3,6 +3,7 @@ var WeatherForm = require('WeatherForm');
 var WeatherMessage = require('WeatherMessage');
 var openWeatherMap = require('openWeatherMap');
 var ErrorModal = require('ErrorModal');
+const queryString = require('query-string');
 
 var Weather = React.createClass({
     getInitialState: function () {
@@ -15,7 +16,9 @@ var Weather = React.createClass({
       var that = this;
       this.setState({
         isLoading: true,
-        errorMessage: undefined
+        errorMessage: undefined,
+        location:undefined,
+        temp:undefined
       });
       openWeatherMap.getTemp(location).then(function (temp) {
           that.setState({
@@ -31,7 +34,23 @@ var Weather = React.createClass({
         });
     },
 
+    componentDidMount: function (){
+      var locationObject = queryString.parse(this.props.location.search);
+      var location = locationObject.location;
+      if(location && location.length > 0){
+        this.handleSearch(location);
+        window.location.hash = '#/';
+      }
+    },
 
+    componentWillReceiveProps: function (newProps) {
+      var locationObject = queryString.parse(newProps.location.search);
+      var location = locationObject.location;
+      if(location && location.length > 0){
+        this.handleSearch(location);
+        window.location.hash = '#/';
+      }
+    },
     render: function() {
         var {isLoading,temp,location,errorMessage} = this.state;
         function renderMessage(){
