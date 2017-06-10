@@ -3,7 +3,7 @@ var React = require('react');
 var About = (props) => {
   return (
   <div>
-    <h1 className="text-center">About page</h1>
+    <h1 className="text-center page-title">About page</h1>
     <p> This ia a React Web application deployed on Heroku.
      This Application will give you Live Weather in a City in Degrees Celcius</p>
     <p> Here are some of the tools I used:</p>

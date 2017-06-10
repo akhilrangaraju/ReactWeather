@@ -8,7 +8,6 @@ module.exports = {
     var requestUrl = `${OPEN_WEATHER_MAP_URL}&q=${encodedLocation}`;
 
   return axios.get(requestUrl).then(function (res) {
-    debugger;
           if(res.data.cod != 200  && res.data.message) {
               throw new Error ('Unable to Fetch Weather');
           } else{
